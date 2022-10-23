@@ -1,10 +1,10 @@
 ﻿CREATE TABLE tenders 
 (
-    outer_code	int,
-    number	varchar(255),
-    status	varchar(20),
-    name	varchar(255),
-    date_change	varchar(100)
+    `outer_code`	int,
+    `number`	varchar(255),
+    `status`	varchar(20),
+    `name`	varchar(255),
+    `date_change`	varchar(100)
 );
 
 INSERT INTO tenders (outer_code, number, status, name, date_change) VALUES ('152467180', '17660-2', 'Закрыто', 'Лабороаторная посуда', '14.08.2022 19:25:14');

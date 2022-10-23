@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\TenderFilter;
+use App\Http\Requests\FilterRequest;
 use Illuminate\Http\Request;
+
+use App\Models\Tender;
+
 
 class TenderController extends Controller
 {
@@ -12,9 +17,20 @@ class TenderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FilterRequest $request)
     {
-        //
+        $data = $request->validate([
+            'name' => '',
+            'date_change' => ''
+        ]);
+
+        $filter = app()->make(TenderFilter::class, ['queryParams' => array_filter($data)]);
+
+        $tenders = Tender::filter($filter)->paginate(10);
+
+        return $tenders;
+
+        // return view("tenders.index", ['tenders' => $tenders]);
     }
 
     /**
@@ -24,7 +40,7 @@ class TenderController extends Controller
      */
     public function create()
     {
-        //
+        return view("tenders.create");
     }
 
     /**
@@ -35,7 +51,18 @@ class TenderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'outer_code' => 'required',
+            'number' => 'required',
+            'status' => 'required',
+            'name' => 'required'
+        ]);
+
+        $validated['date_change'] = date("Y-m-d H:i:s");
+
+        Tender::create($validated);
+
+        return redirect()->route("tenders.index");
     }
 
     /**
@@ -46,7 +73,9 @@ class TenderController extends Controller
      */
     public function show($id)
     {
-        //
+        $tender = Tender::findOrFail($id);
+
+        return $tender;
     }
 
     /**
@@ -57,7 +86,9 @@ class TenderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tender = Tender::find($id);
+
+        return view("tenders.edit", ['tender' => $tender]);
     }
 
     /**
@@ -69,7 +100,18 @@ class TenderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'outer_code' => 'required',
+            'number' => 'required',
+            'status' => 'required',
+            'name' => 'required'
+        ]);
+
+        $validated['date_change'] = date("Y-m-d H:i:s");
+
+        Tender::where('id', $id)->update($validated);
+
+        return redirect()->route("tenders.index");
     }
 
     /**
@@ -80,6 +122,10 @@ class TenderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tender = Tender::find($id);
+
+        $tender->delete();
+
+        return redirect()->route("tenders.index");
     }
 }

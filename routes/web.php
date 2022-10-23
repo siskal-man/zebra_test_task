@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\TenderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [TenderController::class, 'index']);
+Route::get('/tenders/create', [TenderController::class, 'create'])->name("tenders.create");
+Route::get('/tenders/{id}/edit', [TenderController::class, 'edit'])->name("tenders.edit");
