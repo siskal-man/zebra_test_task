@@ -8,7 +8,7 @@ use App\Http\Requests\FilterRequest;
 use Illuminate\Http\Request;
 
 use App\Models\Tender;
-
+use Illuminate\Http\Response;
 
 class TenderController extends Controller
 {
@@ -29,8 +29,6 @@ class TenderController extends Controller
         $tenders = Tender::filter($filter)->paginate(10);
 
         return $tenders;
-
-        // return view("tenders.index", ['tenders' => $tenders]);
     }
 
     /**
@@ -62,7 +60,7 @@ class TenderController extends Controller
 
         Tender::create($validated);
 
-        return redirect()->route("tenders.index");
+        return redirect()->route("index");
     }
 
     /**
@@ -111,7 +109,7 @@ class TenderController extends Controller
 
         Tender::where('id', $id)->update($validated);
 
-        return redirect()->route("tenders.index");
+        return redirect()->route("index");
     }
 
     /**
@@ -126,6 +124,6 @@ class TenderController extends Controller
 
         $tender->delete();
 
-        return redirect()->route("tenders.index");
+        return redirect()->route("index");
     }
 }
