@@ -25,7 +25,7 @@ class FilterRequest extends FormRequest
     {
         return [
             'name' => 'string',
-            'date_change' => 'string'
+            'change_at' => 'string'
         ];
     }
 }

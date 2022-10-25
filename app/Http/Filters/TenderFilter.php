@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Builder;
 class TenderFilter extends AbstractFilter
 {
     public const NAME = 'name';
-    public const DATE = 'date_change';
+    public const DATE = 'change_at';
 
 
     protected function getCallbacks(): array
     {
         return [
             self::NAME => [$this, 'name'],
-            self::DATE => [$this, 'date_change'],
+            self::DATE => [$this, 'change_at'],
         ];
     }
 
@@ -25,8 +25,8 @@ class TenderFilter extends AbstractFilter
         $builder->where('name', 'like', "%{$value}%");
     }
 
-    public function date_change(Builder $builder, $value)
+    public function change_at(Builder $builder, $value)
     {
-        $builder->where('date_change', 'like', "%{$value}%");
+        $builder->where('change_at', 'like', "%{$value}%");
     }
 }

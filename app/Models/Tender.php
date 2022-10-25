@@ -18,7 +18,7 @@ class Tender extends Model
         'number',
         'status',
         'name',
-        'date_change'
+        'change_at'
     ];
 
 

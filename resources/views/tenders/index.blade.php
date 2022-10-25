@@ -20,13 +20,13 @@
                             <td>{{ $tender->number }}</td>
                             <td>{{ $tender->status }}</td>
                             <td>{{ $tender->name }}</td>
-                            <td>
-                                <a type="button" class="btn btn-success" href="{{ route('tenders.edit', $tender->id) }}"><i
+                            <td class="d-flex justify-content-between">
+                                <a type="button" class="btn btn-success mb-1" href="{{ route('tenders.edit', $tender->id) }}"><i
                                         class="fas fa-edit"></i></a>
                                 <form action="{{ route('tenders.destroy', $tender->id) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <input type="submit" value="Удалить тендер" class="btn btn-danger far fa-trash-alt">
+                                    <input type="submit" value="X" class="btn btn-danger far fa-trash-alt" style="width: 100%; max-width: 42px; height: 38px">
                                 </form>
                             </td>
                         </tr>

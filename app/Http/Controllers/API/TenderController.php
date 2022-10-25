@@ -21,7 +21,7 @@ class TenderController extends Controller
     {
         $data = $request->validate([
             'name' => '',
-            'date_change' => ''
+            'change_at' => ''
         ]);
 
         $filter = app()->make(TenderFilter::class, ['queryParams' => array_filter($data)]);
@@ -56,7 +56,7 @@ class TenderController extends Controller
             'name' => 'required'
         ]);
 
-        $validated['date_change'] = date("Y-m-d H:i:s");
+        $validated['change_at'] = date("Y-m-d H:i:s");
 
         Tender::create($validated);
 
@@ -105,7 +105,7 @@ class TenderController extends Controller
             'name' => 'required'
         ]);
 
-        $validated['date_change'] = date("Y-m-d H:i:s");
+        $validated['change_at'] = date("Y-m-d H:i:s");
 
         Tender::where('id', $id)->update($validated);
 
